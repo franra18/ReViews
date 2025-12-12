@@ -77,7 +77,11 @@ onMounted(async () => {
     reviews.value = await reviewService.getAll();
   } catch (error) {
     console.error("Error al cargar datos", error);
-    logout();
+    // Solo hacer logout si es un error 401 (no autorizado)
+    // Los otros errores (red, servidor) se manejan sin cerrar sesión
+    if (error.response?.status === 401) {
+      logout();
+    }
   }
 });
 
