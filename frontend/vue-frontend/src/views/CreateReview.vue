@@ -46,7 +46,7 @@
               required
             />
             <button type="button" @click="geocodeAddress" class="btn-geocode" :disabled="geocoding">
-              {{ geocoding ? 'Buscando...' : '🔍 Obtener coordenadas' }}
+              {{ geocoding ? 'Buscando...' : 'Obtener coordenadas' }}
             </button>
           </div>
           <p v-if="geocodeError" class="error-msg">{{ geocodeError }}</p>

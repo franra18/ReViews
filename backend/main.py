@@ -12,9 +12,12 @@ origins = [
     "http://localhost:8080",
     "http://localhost:5173",
     "http://localhost:5174",
-    settings.FRONTEND_URL,
-    # Añade aquí tu dominio de producción (ej: https://mi-app.com)
+    "https://reviews-frontend-rlqgyb.netlify.app",  # Tu frontend en Netlify
 ]
+
+# Agregar FRONTEND_URL si está configurada
+if settings.FRONTEND_URL:
+    origins.append(settings.FRONTEND_URL)
 
 app.add_middleware(SessionMiddleware, secret_key=settings.SECRET_KEY)
 
@@ -24,6 +27,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 # Incluir Routers
