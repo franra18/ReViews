@@ -66,7 +66,8 @@ async def auth_google(request: Request):
 
         # REDIRECCIÓN AL FRONTEND
         # Enviamos el token en la URL para que Vue lo capture
-        return RedirectResponse(url=f"{settings.FRONTEND_URL}/auth-callback?token={access_token}")
+        frontend_url = settings.FRONTEND_URL.rstrip('/')
+        return RedirectResponse(url=f"{frontend_url}/auth-callback?token={access_token}")
 
     except Exception as e:
         # Manejo de errores
