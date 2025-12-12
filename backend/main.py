@@ -12,15 +12,14 @@ origins = [
     "http://localhost:8080",
     "http://localhost:5173",
     "http://localhost:5174",
-    "https://reviews-frontend-rlqgyb.netlify.app",  # Tu frontend en Netlify
+    "https://reviews-frontend-rlqgyb.netlify.app",
 ]
 
 # Agregar FRONTEND_URL si está configurada
 if settings.FRONTEND_URL:
     origins.append(settings.FRONTEND_URL)
 
-app.add_middleware(SessionMiddleware, secret_key=settings.SECRET_KEY)
-
+# CORS debe ir ANTES de SessionMiddleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -29,6 +28,8 @@ app.add_middleware(
     allow_headers=["*"],
     expose_headers=["*"],
 )
+
+app.add_middleware(SessionMiddleware, secret_key=settings.SECRET_KEY)
 
 # Incluir Routers
 app.include_router(auth.router, prefix="/auth") # Las rutas serán /auth/register y /auth/token
